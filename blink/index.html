@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    * {padding:0px;margin:0px;}
+    html,body {
+        height: 100%;
+        background-color: #000;
+    }
+    .xueT {
+        width: 200px;
+        height: 20px;
+        border: solid #fff 1px;
+    }
+    .xueT span {
+        height: 20px;
+        display: inline-block;
+        background-color: red;
+    }
+    </style>
+</head>
+<body>
+    <div class="xueT"><span style="width: 200px;"></span></div>
+    
+    <script>
+    var spanObj = document.querySelector('.xueT span');
+    var diaoxue=function(){
+        var xueTimer=setInterval(function() {
+        var width = parseInt(spanObj.style.width)
+        width-=10;
+        spanObj.style.width = width + 'px';
+        console.log(spanObj.style.width);
+        console.log(width);   
+        if(width<0){
+            clearInterval(xueTimer);
+            alert("你已经死了！");
+            }
+        }, 1000)
+    }
+    //先出小星星，3s以后开始掉血
+    setTimeout(diaoxue,3000);
+    
+    
+    
+    function random(min, max) {
+        return Math.floor( Math.random() * (max-min+1)+min )
+      
+    }
+    
+    
+    setInterval(function() {
+       
+        var imgObj = document.createElement('img')
+      
+        imgObj.src = './star.gif'
+       
+        imgObj.width = random(40, 60)
+        imgObj.height = random(40, 60)
+        imgObj.style.position = 'absolute' 
+        var maxLeft = (window.innerWidth || document.documentElement.clientWidth) - imgObj.width
+        imgObj.style.left = random(0, maxLeft) + 'px'
+        var maxTop = (window.innerHeight || document.documentElement.clientHeight) - imgObj.height
+        imgObj.style.top = random(0, maxTop) + 'px'
+    
+        document.body.appendChild(imgObj)
+    }, 1000)
+    
+    document.body.onclick = function(evt) {
+        var e = evt || window.event
+        var target = e.target || e.srcElement
+    
+        if (target.nodeName == 'IMG')
+        {
+            document.body.removeChild(target)
+            var width = parseInt(spanObj.style.width)
+            if(width!=0 && width<200){
+                width+=10;
+                spanObj.style.width = width + 'px';
+            }
+        }
+    }
+    </script>
+</body>
+</html>
